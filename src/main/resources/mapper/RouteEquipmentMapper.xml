@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.RouteEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.RouteEquipment" >
+    <id column="table_id" property="tableId" jdbcType="BIGINT" />
+    <id column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="sequense_id" property="sequenseId" jdbcType="BIGINT" />
+    <result column="equipment_id" property="equipmentId" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from route_equipment
+    where table_id = #{tableId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.RouteEquipment" >
+    insert into route_equipment (table_id, route_id, sequense_id, 
+      equipment_id)
+    values (#{tableId,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT}, #{sequenseId,jdbcType=BIGINT}, 
+      #{equipmentId,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.RouteEquipment" >
+    update route_equipment
+    set sequense_id = #{sequenseId,jdbcType=BIGINT},
+      equipment_id = #{equipmentId,jdbcType=BIGINT}
+    where table_id = #{tableId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select table_id, route_id, sequense_id, equipment_id
+    from route_equipment
+    where table_id = #{tableId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select table_id, route_id, sequense_id, equipment_id
+    from route_equipment
+  </select>
+    <select id="selectEquipmentInRoute" resultType="java.lang.Long">
+    select equipment_id
+    from route_equipment
+    where route_id = #{routeId,jdbcType=BIGINT}
+    </select>
+    <select id="pageSelect" resultType="com.wll.inspection.dao.RouteEquipment">
+    select table_id, route_id, sequense_id, equipment_id
+    from route_equipment
+    </select>
+    <select id="selectByEquipmentId" resultType="com.wll.inspection.dao.RouteEquipment">
+      select table_id, route_id, sequense_id, equipment_id
+    from route_equipment
+    where equipment_id = #{equipmentId,jdbcType=BIGINT}
+    </select>
+</mapper>

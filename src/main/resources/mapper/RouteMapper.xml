@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.RouteMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Route" >
+    <id column="route_id" property="routeId" jdbcType="BIGINT" />
+    <id column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="station_id" property="stationId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="maker_id" property="makerId" jdbcType="BIGINT" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from route
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Route" >
+    insert into route (route_id,`route_name`, station_id, `type`,
+      maker_id, `date`)
+    values (#{routeId,jdbcType=BIGINT}, #{routeName,jdbcType=VARCHAR},#{stationId,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR},
+      #{makerId,jdbcType=BIGINT}, #{date,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Route" >
+    update route
+    set station_id = #{stationId,jdbcType=BIGINT},
+        `route_name` = #{routeName,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      maker_id = #{makerId,jdbcType=BIGINT},
+      `date` = #{date,jdbcType=TIMESTAMP}
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select route_id,`route_name`, station_id, `type`, maker_id, `date`
+    from route
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select route_id,`route_name`, station_id, `type`, maker_id, `date`
+    from route
+  </select>
+  <select id="pageSelect" resultMap="BaseResultMap">
+    select route_id, `route_name`,station_id, `type`, maker_id, `date`
+    from route
+  </select>
+</mapper>

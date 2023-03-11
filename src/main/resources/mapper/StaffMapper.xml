@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wll.inspection.mapper.StaffMapper">
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Staff">
+    <id column="staff_id" jdbcType="BIGINT" property="staffId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="privilege" jdbcType="TINYINT" property="privilege" />
+    <result column="station_id" jdbcType="BIGINT" property="stationId" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+  </resultMap>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Staff">
+    insert into staff (staff_id, `name`, `password`, phone, privilege, station_id, photo)
+    values (#{staffId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{privilege,jdbcType=BIGINT}, #{stationId,jdbcType=BIGINT}, #{photo,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Staff">
+    update staff
+    set `staff_id` = #{staffId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR}
+      phone = #{phone,jdbcType=VARCHAR}
+      privilege = #{privilege,jdbcType=BIGINT}
+      station_id = #{station_id,jdbcType=BIGINT}
+      photo = #{photo,jdbcType=VARCHAR}
+    where staff_id = #{staffId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select staff_id, `name`, `password`, phone, privilege, station_id, photo
+    from staff
+    where staff_id = #{staffId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from staff
+    where staff_id = #{staffId,jdbcType=BIGINT}
+  </delete>
+
+    <select id="pageSelect" resultMap="BaseResultMap">
+    select staff_id, `name`, `password`, phone, privilege, station_id, photo
+    from staff
+
+    </select>
+    <select id="getByName" resultType="com.wll.inspection.dao.Staff">
+    select staff_id, `name`, `password`, phone, privilege, station_id, photo
+    from staff
+    where name = #{name,jdbcType=VARCHAR}
+    </select>
+  <select id="selectAll" resultType="com.wll.inspection.dao.Staff">
+    select staff_id, `name`, `password`, phone, privilege, station_id, photo
+    from staff
+  </select>
+</mapper>

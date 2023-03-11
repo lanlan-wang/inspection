@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.TaskStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.TaskStaff" >
+    <id column="appoint_id" property="appointId" jdbcType="BIGINT" />
+    <id column="route_id" property="routeId" jdbcType="BIGINT" />
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="staff_id" property="staffId" jdbcType="BIGINT" />
+    <result column="supervisor_id" property="supervisorId" jdbcType="BIGINT" />
+    <result column="process" property="process" jdbcType="LONGVARCHAR" />
+    <result column="staff_feedback" property="staffFeedback" jdbcType="LONGVARCHAR" />
+    <result column="supervisor_feedback" property="supervisorFeedback" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from task_staff
+    where appoint_id = #{appointId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+      and task_id = #{taskId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.TaskStaff" >
+    insert into task_staff (appoint_id, route_id, task_id, 
+      staff_id, supervisor_id, `process`, 
+      staff_feedback, supervisor_feedback
+      )
+    values (#{appointId,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT}, #{taskId,jdbcType=BIGINT}, 
+      #{staffId,jdbcType=BIGINT}, #{supervisorId,jdbcType=BIGINT}, #{process,jdbcType=LONGVARCHAR}, 
+      #{staffFeedback,jdbcType=LONGVARCHAR}, #{supervisorFeedback,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.TaskStaff" >
+    update task_staff
+    set staff_id = #{staffId,jdbcType=BIGINT},
+      supervisor_id = #{supervisorId,jdbcType=BIGINT},
+      `process` = #{process,jdbcType=LONGVARCHAR},
+      staff_feedback = #{staffFeedback,jdbcType=LONGVARCHAR},
+      supervisor_feedback = #{supervisorFeedback,jdbcType=LONGVARCHAR}
+    where appoint_id = #{appointId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+      and task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select appoint_id, route_id, task_id, staff_id, supervisor_id, `process`, staff_feedback, 
+    supervisor_feedback
+    from task_staff
+    where appoint_id = #{appointId,jdbcType=BIGINT}
+      and route_id = #{routeId,jdbcType=BIGINT}
+      and task_id = #{taskId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select appoint_id, route_id, task_id, staff_id, supervisor_id, `process`, staff_feedback, 
+    supervisor_feedback
+    from task_staff
+  </select>
+    <select id="pageSelect" resultType="com.wll.inspection.dao.TaskStaff">
+    select appoint_id, route_id, task_id, staff_id, supervisor_id, `process`, staff_feedback,
+    supervisor_feedback
+    from task_staff
+    </select>
+    <select id="selectTaskByTaskId" resultType="com.wll.inspection.dao.TaskStaff">
+    select appoint_id, route_id, task_id, staff_id, supervisor_id, `process`, staff_feedback,
+    supervisor_feedback
+    from task_staff
+    where task_id = #{taskId,jdbcType=BIGINT}
+    </select>
+    <select id="selectTaskByStaffId" resultType="com.wll.inspection.dao.TaskStaff">
+    select appoint_id, route_id, task_id, staff_id, supervisor_id, `process`, staff_feedback,
+    supervisor_feedback
+    from task_staff
+    where staff_id = #{staffId,jdbcType=BIGINT}
+    </select>
+</mapper>

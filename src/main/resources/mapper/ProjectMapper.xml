@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Project" >
+    <id column="table_id" property="tableId" jdbcType="BIGINT" />
+    <result column="check_id" property="checkId" jdbcType="INTEGER" />
+    <result column="equipment_id" property="equipmentId" jdbcType="BIGINT" />
+    <result column="check_name" property="checkName" jdbcType="VARCHAR" />
+    <result column="label_id" property="labelId" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project
+    where table_id = #{tableId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Project" >
+    insert into project (table_id, check_id, equipment_id, 
+      check_name, label_id)
+    values (#{tableId,jdbcType=BIGINT}, #{checkId,jdbcType=INTEGER}, #{equipmentId,jdbcType=BIGINT}, 
+      #{checkName,jdbcType=VARCHAR}, #{labelId,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Project" >
+    update project
+    set check_id = #{checkId,jdbcType=INTEGER},
+      equipment_id = #{equipmentId,jdbcType=BIGINT},
+      check_name = #{checkName,jdbcType=VARCHAR},
+      label_id = #{labelId,jdbcType=BIGINT}
+    where table_id = #{tableId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select table_id, check_id, equipment_id, check_name, label_id
+    from project
+    where table_id = #{tableId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select table_id, check_id, equipment_id, check_name, label_id
+    from project
+  </select>
+  <select id="pageSelect" resultMap="BaseResultMap">
+    select table_id, check_id, equipment_id, check_name, label_id
+    from project
+  </select>
+    <select id="selectByEquipmentId" resultType="com.wll.inspection.dao.Project">
+    select table_id, check_id, equipment_id, check_name, label_id
+    from project
+    where equipment_id = #{equipmentId,jdbcType=BIGINT}
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.RecordMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Record" >
+    <id column="record_id" property="recordId" jdbcType="BIGINT" />
+    <result column="appoint_id" property="appointId" jdbcType="BIGINT" />
+    <result column="equipment_id" property="equipmentId" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="video" property="video" jdbcType="VARCHAR" />
+    <result column="record" property="record" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from record
+    where record_id = #{recordId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Record" >
+    insert into record (record_id, appoint_id, equipment_id, 
+      project_id, `date`, photo, 
+      video, record)
+    values (#{recordId,jdbcType=BIGINT}, #{appointId,jdbcType=BIGINT}, #{equipmentId,jdbcType=BIGINT}, 
+      #{projectId,jdbcType=BIGINT}, #{date,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, 
+      #{video,jdbcType=VARCHAR}, #{record,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Record" >
+    update record
+    set appoint_id = #{appointId,jdbcType=BIGINT},
+      equipment_id = #{equipmentId,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=BIGINT},
+      `date` = #{date,jdbcType=TIMESTAMP},
+      photo = #{photo,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      record = #{record,jdbcType=LONGVARCHAR}
+    where record_id = #{recordId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select record_id, appoint_id, equipment_id, project_id, `date`, photo, video, record
+    from record
+    where record_id = #{recordId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select record_id, appoint_id, equipment_id, project_id, `date`, photo, video, record
+    from record
+  </select>
+    <select id="pageSelect" resultMap="BaseResultMap">
+    select record_id, appoint_id, equipment_id, project_id, `date`, photo, video, record
+    from record
+    </select>
+</mapper>

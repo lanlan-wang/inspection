@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.InspectionPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.InspectionPlan" >
+    <id column="plan_id" property="planId" jdbcType="BIGINT" />
+    <id column="plan_name" jdbcType="VARCHAR" property="planName"/>
+    <result column="issued_way" property="issuedWay" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="frequency" property="frequency" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from inspect_plan
+    where plan_id = #{planId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.InspectionPlan" >
+    insert into inspect_plan (plan_id,`plan_name`, issued_way, start_date,
+      end_date, frequency)
+    values (#{planId,jdbcType=BIGINT},#{planName,jdbcType=VARCHAR}, #{issuedWay,jdbcType=INTEGER}, #{startDate,jdbcType=TIMESTAMP},
+      #{endDate,jdbcType=TIMESTAMP}, #{frequency,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.InspectionPlan" >
+    update inspect_plan
+    set issued_way = #{issuedWay,jdbcType=INTEGER},
+        `plan_name` = #{planName,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      frequency = #{frequency,jdbcType=INTEGER}
+    where plan_id = #{planId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select plan_id,`plan_name`, issued_way, start_date, end_date, frequency
+    from inspect_plan
+    where plan_id = #{planId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select plan_id, `plan_name`, issued_way, start_date, end_date, frequency
+    from inspect_plan
+  </select>
+    <select id="pageSelect" resultMap="BaseResultMap">
+    select plan_id,`plan_name`,  issued_way, start_date, end_date, frequency
+    from inspect_plan
+    </select>
+</mapper>

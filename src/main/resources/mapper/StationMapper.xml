@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.StationMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Station" >
+    <id column="station_id" property="stationId" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from station
+    where station_id = #{stationId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Station" >
+    insert into station (station_id, address, company_id, 
+      `name`)
+    values (#{stationId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Station" >
+    update station
+    set address = #{address,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      `name` = #{name,jdbcType=VARCHAR}
+    where station_id = #{stationId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select station_id, address, company_id, `name`
+    from station
+    where station_id = #{stationId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select station_id, address, company_id, `name`
+    from station
+  </select>
+    <select id="pageSelect" resultMap="BaseResultMap">
+    select station_id, address, company_id, `name`
+    from station
+    </select>
+</mapper>

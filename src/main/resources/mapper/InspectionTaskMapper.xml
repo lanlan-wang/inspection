@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wll.inspection.mapper.InspectionTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.InspectionTask" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="plan_id" property="planId" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="attachment" property="attachment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from inspection_task
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.InspectionTask" >
+    insert into inspection_task (task_id,`task_name`, plan_id, start_time,
+      end_time, content, attachment
+      )
+    values (#{taskId,jdbcType=BIGINT}, #{taskName,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}, #{attachment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.InspectionTask" >
+    update inspection_task
+    set plan_id = #{planId,jdbcType=BIGINT},
+        `task_name`= #{taskName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      attachment = #{attachment,jdbcType=LONGVARCHAR}
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select task_id,`task_name`, plan_id, start_time, end_time, content, attachment
+    from inspection_task
+    where task_id = #{taskId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select task_id,`task_name`, plan_id, start_time, end_time, content, attachment
+    from inspection_task
+  </select>
+    <select id="pageSelect" resultType="com.wll.inspection.dao.InspectionTask">
+    select task_id, `task_name`,plan_id, start_time, end_time, content, attachment
+    from inspection_task
+    </select>
+</mapper>

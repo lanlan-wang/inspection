@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wll.inspection.mapper.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.wll.inspection.dao.Company">
+    <id column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from company
+    where company_id = #{companyId}
+  </delete>
+  <insert id="insert" parameterType="com.wll.inspection.dao.Company">
+    insert into company (company_id, `name`, address
+      )
+    values (#{companyId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wll.inspection.dao.Company">
+    update company
+    set `name` = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select company_id, `name`, address
+    from company
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select company_id, `name`, address
+    from company
+  </select>
+  <select id="pageSelect" resultMap="BaseResultMap">
+  select company_id, `name`, address
+  from company
+  </select>
+</mapper>
